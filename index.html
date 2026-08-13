@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Атомы Души — кармическая нумерология</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #fbf6ec;
+    --bg-2: #f5ecd9;
+    --panel: #ffffff;
+    --gold: #b8863c;
+    --gold-deep: #96692a;
+    --gold-light: #e3c07f;
+    --sky: #7fabd6;
+    --ink: #332b22;
+    --muted: #7a7263;
+    --line: rgba(184,134,60,0.25);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(900px 500px at 10% -10%, rgba(127,171,214,0.18), transparent 60%),
+      radial-gradient(800px 500px at 100% 0%, rgba(227,192,127,0.35), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Jost',sans-serif;
+    font-weight:300;
+    line-height:1.65;
+  }
+  .serif{ font-family:'Cormorant Garamond', serif; }
+  .wrap{ max-width:960px; margin:0 auto; padding:0 24px; }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  header.hero{ padding:80px 0 40px; text-align:center; }
+  .kicker{ text-transform:uppercase; letter-spacing:0.28em; font-size:0.7rem; color:var(--gold-deep); margin-bottom:16px; }
+  .hero h1{ font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:600; font-size:3.4rem; color:var(--gold-deep); margin:0 0 6px; }
+  .hero p.sub{ font-family:'Cormorant Garamond', serif; font-size:1.3rem; color:var(--ink); opacity:0.75; margin:0 0 22px; }
+  .hero p.desc{ max-width:560px; margin:0 auto; color:var(--muted); font-size:1rem; }
+
+  .hero-banner{ max-width:900px; margin:0 auto; padding:0 24px; }
+  .hero-banner img{ width:100%; border-radius:8px; box-shadow:0 30px 60px -25px rgba(51,43,34,0.4); }
+
+  section{ padding:56px 0; }
+  .eyebrow{ font-size:0.72rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--gold-deep); margin-bottom:10px; }
+  section h2{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:2rem; color:var(--ink); margin:0 0 18px; }
+
+  #book-product{ background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .book-layout{ display:grid; grid-template-columns:280px 1fr; gap:48px; align-items:center; }
+  .book-cover-wrap{ position:relative; }
+  .book-cover-wrap img{ border-radius:4px; box-shadow:0 24px 50px -20px rgba(150,105,42,0.45); }
+  .book-copy p{ color:var(--muted); font-size:1rem; margin-bottom:16px; }
+  .price-row{ display:flex; align-items:baseline; gap:14px; margin:24px 0 20px; }
+  .price{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:2.6rem; color:var(--gold-deep); }
+  .price-note{ font-size:0.82rem; color:var(--muted); }
+  a.btn-primary{
+    display:inline-block; text-decoration:none;
+    padding:16px 38px; background:linear-gradient(120deg, var(--gold), var(--gold-light));
+    color:#fff; font-family:'Jost',sans-serif; font-weight:600; letter-spacing:0.03em;
+    font-size:1rem; border-radius:3px; box-shadow:0 12px 26px -10px rgba(184,134,60,0.55);
+    transition:transform .18s ease;
+  }
+  a.btn-primary:hover{ transform:translateY(-2px); }
+  @media (max-width: 680px){
+    .book-layout{ grid-template-columns:1fr; text-align:center; }
+    .book-cover-wrap{ max-width:240px; margin:0 auto; }
+    .price-row{ justify-content:center; }
+  }
+
+  .about-layout{ display:grid; grid-template-columns:220px 1fr; gap:44px; align-items:start; }
+  .about-photo img{ border-radius:6px; box-shadow:0 20px 40px -18px rgba(51,43,34,0.35); }
+  .about-copy p{ color:var(--muted); font-size:0.98rem; margin-bottom:14px; }
+  .about-name{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.5rem; color:var(--ink); margin:0 0 4px; }
+  .about-role{ font-size:0.85rem; color:var(--gold-deep); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:18px; }
+  .author-quote{
+    margin:22px 0 0; padding-left:18px; border-left:3px solid var(--gold);
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem;
+    color:var(--gold-deep);
+  }
+  @media (max-width: 680px){
+    .about-layout{ grid-template-columns:1fr; text-align:center; }
+    .about-photo{ max-width:220px; margin:0 auto; }
+  }
+
+  #testimonials{ background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .testi-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:20px; }
+  .testi-card{ background:var(--panel); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+  .testi-card video{ width:100%; display:block; background:#000; }
+  .testi-more{ color:var(--muted); font-size:0.9rem; font-style:italic; margin-top:18px; }
+
+  .paths{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; }
+  .path-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:6px;
+    padding:28px 22px; text-align:left; display:flex; flex-direction:column;
+  }
+  .path-eyebrow{ font-size:0.68rem; text-transform:uppercase; letter-spacing:0.12em; margin-bottom:10px; color:var(--gold-deep); }
+  .path-card h3{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.3rem; margin:0 0 10px; color:var(--ink); }
+  .path-card p{ font-size:0.88rem; color:var(--muted); margin:0 0 20px; flex-grow:1; }
+  a.btn-outline{
+    display:inline-block; text-align:center; text-decoration:none;
+    padding:12px 18px; border:1px solid var(--gold); border-radius:3px;
+    color:var(--gold-deep); font-family:'Jost',sans-serif; font-weight:500; font-size:0.9rem;
+    transition:background .18s ease, color .18s ease;
+  }
+  a.btn-outline:hover{ background:var(--gold); color:#fff; }
+  @media (max-width: 720px){ .paths{ grid-template-columns:1fr; } }
+
+  footer{ text-align:center; padding:48px 0; color:var(--muted); font-size:0.8rem; }
+
+  /* ---- Система: звезда + карточки ---- */
+  .system-layout{ display:grid; grid-template-columns:280px 1fr; gap:40px; align-items:center; margin-top:28px; }
+  .system-star img{ border-radius:6px; box-shadow:0 20px 40px -18px rgba(51,43,34,0.35); }
+  @media (max-width: 720px){
+    .system-layout{ grid-template-columns:1fr; }
+    .system-star{ max-width:280px; margin:0 auto; }
+  }
+
+  /* ---- Обучение: модули ---- */
+  .learn-grid{ display:flex; flex-direction:column; gap:2px; }
+  .learn-item{
+    display:flex; align-items:baseline; gap:16px;
+    padding:14px 0; border-top:1px solid var(--line); font-size:0.95rem; color:var(--ink);
+  }
+  .learn-item:last-child{ border-bottom:1px solid var(--line); }
+  .learn-item span{
+    font-family:'Cormorant Garamond', serif; font-weight:600; color:var(--gold-deep);
+    min-width:52px; font-size:1.05rem;
+  }
+
+  /* ---- Душа предка ---- */
+  #ancestor-soul{ background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .ancestor-list{ display:flex; flex-direction:column; gap:2px; }
+  .ancestor-item{
+    display:grid; grid-template-columns:150px 1fr; gap:24px;
+    padding:20px 0; border-top:1px solid var(--line);
+  }
+  .ancestor-item:last-child{ border-bottom:1px solid var(--line); }
+  .ancestor-days{
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.1rem;
+    color:var(--gold-deep); white-space:nowrap; padding-top:2px;
+  }
+  .ancestor-body h3{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.05rem; margin:0 0 8px; color:var(--ink); }
+  .ancestor-body p{ margin:0; font-size:0.88rem; color:var(--muted); }
+  @media (max-width: 640px){
+    .ancestor-item{ grid-template-columns:1fr; gap:8px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Кармическая нумерология</div>
+    <h1 class="serif">Атомы Души</h1>
+    <p class="sub">Книга Анастасии Цвиркуновой (Щетининой)</p>
+    <p class="desc">О том, как читать свою душу через числа: родовые сценарии, кармические уроки прошлых воплощений и то, что определяет судьбу задолго до рождения.</p>
+  </div>
+</header>
+
+<div class="hero-banner">
+  <img src="book-cover-3d.jpg" alt="Книга «Атомы Души» на столе со свечами и кристаллом">
+</div>
+
+<section id="system">
+  <div class="wrap">
+    <div class="eyebrow">Авторская методика</div>
+    <h2 class="serif">Система «Кармион»</h2>
+    <p style="color:var(--muted); font-size:1rem; max-width:680px; margin:0 0 12px;">«Кармион» объединяет классическую, пифагорейскую и ведическую нумерологию, а также нумерологию Таро — в единую матрицу из 22 кармических энергий. Цель системы — не описать характер, а дать инструмент: показать, в чём человек сейчас проживает свою энергию в минус, и куда её направить, чтобы жизнь начала налаживаться.</p>
+
+    <div class="system-layout">
+      <div class="system-star">
+        <img src="karmion-star.jpg" alt="Звезда «Кармион»">
+      </div>
+      <div class="grid2col" style="grid-template-columns:1fr;">
+        <div class="digit-card"><h3>Родовая задача</h3><p>По месяцу рождения — кармическая программа, унаследованная от рода.</p></div>
+        <div class="digit-card"><h3>СЖ и ОПВ</h3><p>Сожаление и ошибка прошлого воплощения — что тянется из прошлой жизни.</p></div>
+        <div class="digit-card"><h3>Шесть Лучей</h3><p>Число Сознания, Характера, Судьбы, Жизненного Пути, Ядро Силы, Глобальный Вектор.</p></div>
+      </div>
+    </div>
+    <p style="color:var(--muted); font-size:0.92rem; margin-top:20px;">Все девять чисел складываются в звезду «Кармион» — шестиконечную звезду с тремя кармическими значениями внутри. Рассчитать свою звезду можно в <a href="calculator-overview.html" style="color:var(--gold-deep); text-decoration:underline;">калькуляторе</a>.</p>
+  </div>
+</section>
+
+<section id="ancestor-soul">
+  <div class="wrap">
+    <div class="eyebrow">Бонус из книги</div>
+    <h2 class="serif">Душа какого предка пришла в теле вашего ребёнка</h2>
+    <p style="color:var(--muted); font-size:0.95rem; max-width:640px; margin:0 0 28px;">День рождения ребёнка показывает, какая родовая душа воплотилась в нём снова — и какую задачу рода он несёт с самого детства. Найдите число дня рождения в списке ниже.</p>
+    <div class="ancestor-list">
+      <div class="ancestor-item">
+        <div class="ancestor-days">1 · 8 · 17 · 26</div>
+        <div class="ancestor-body">
+          <h3>Переродившийся сильный, знаменитый предок</h3>
+          <p>Сильные, мудрые предки возвращаются в эти даты, когда роду вновь нужен человек, способный удержать его опору. С детства не любят, когда ими руководят, рано начинают принимать решения самостоятельно. Родители часто воспринимают их как упрямых или холодных, пытаясь сломить характер — из-за давления силы становится некуда девать, и она начинает разрушать изнутри.</p>
+        </div>
+      </div>
+      <div class="ancestor-item">
+        <div class="ancestor-days">7 · 16 · 25</div>
+        <div class="ancestor-body">
+          <h3>Переродившаяся душа деда, прадеда по мужской линии</h3>
+          <p>Возвращаются мужчины рода, которые отвечали за его силу и выживание. Даже если рождается девочка, она несёт мужской родовой стержень. Такие люди с трудом принимают помощь, рано взрослеют и живут с ощущением, что права на слабость у них нет.</p>
+        </div>
+      </div>
+      <div class="ancestor-item">
+        <div class="ancestor-days">5 · 23</div>
+        <div class="ancestor-body">
+          <h3>Переродившаяся душа вычеркнутого, забытого родом</h3>
+          <p>Это были отверженные дети, изгнанные родственники, люди, о которых запрещалось говорить. Родившиеся в эти дни с детства чувствуют себя чужими в своей семье, выбирают другой путь и постоянно доказывают своё право быть собой.</p>
+        </div>
+      </div>
+      <div class="ancestor-item">
+        <div class="ancestor-days">9 · 27</div>
+        <div class="ancestor-body">
+          <h3>Душа «знающего» — магического практика, целителя рода</h3>
+          <p>С детства тонко чувствуют людей, обладают сильной интуицией. Эта чувствительность становится испытанием: быстро устают от людей, бессознательно берут на себя чужую боль. Если отвергают свой дар — жизнь подталкивает к ситуациям, где интуицию невозможно игнорировать.</p>
+        </div>
+      </div>
+      <div class="ancestor-item">
+        <div class="ancestor-days">6 · 21 · 24</div>
+        <div class="ancestor-body">
+          <h3>Новая, чужая душа рода</h3>
+          <p>Души, впервые попавшие в родовую систему — не входили в её прежнюю иерархию. Часто чувствуют себя не такими, как все, даже в любящей семье. Именно на них чаще всего заканчиваются многолетние родовые сценарии: разводы, бедность, зависимости, страх проявить себя.</p>
+        </div>
+      </div>
+      <div class="ancestor-item">
+        <div class="ancestor-days">2 · 11 · 20 · 29</div>
+        <div class="ancestor-body">
+          <h3>Переродившаяся душа бабушки, прабабушки по материнской линии</h3>
+          <p>Возвращаются женщины, отвечавшие за продолжение рода. Рождаются с врождённым чувством ответственности за чужие эмоции, особенно привязаны к маме. Главная кармическая задача — не повторить судьбу женщин своего рода, которые жили ради других.</p>
+        </div>
+      </div>
+      <div class="ancestor-item">
+        <div class="ancestor-days">10 · 19 · 22 · 28</div>
+        <div class="ancestor-body">
+          <h3>Последняя нерождённая, абортированная душа рода</h3>
+          <p>Души, которым не удалось воплотиться с первого раза. С детства испытывают необъяснимое чувство, будто им приходится заслуживать право жить и занимать своё место. Боятся потерять отношения, соглашаются там, где их недооценивают.</p>
+        </div>
+      </div>
+      <div class="ancestor-item">
+        <div class="ancestor-days">4 · 31</div>
+        <div class="ancestor-body">
+          <h3>Кармический враг, должник отца</h3>
+          <p>Такие дети приходят именно к своему отцу — разделить с ним карму, если его род согрешил. Особенно тяжело тем, у кого по отцовской линии были разводы, измены, зависимости. Во взрослой жизни сценарий продолжается через начальников и мужчин, проверяющих их на прочность.</p>
+        </div>
+      </div>
+      <div class="ancestor-item">
+        <div class="ancestor-days">3 · 30</div>
+        <div class="ancestor-body">
+          <h3>Кармический враг, должник матери</h3>
+          <p>Возвращаются, чтобы разрешить нерешённый конфликт с женской ветвью семьи. Связь с матерью редко бывает простой. Со временем сценарий переносится на всех женщин — подруг, коллег, свекровей. Род возвращает конфликт, пока женская линия не будет исцелена.</p>
+        </div>
+      </div>
+      <div class="ancestor-item">
+        <div class="ancestor-days">12 · 13 · 14 · 18</div>
+        <div class="ancestor-body">
+          <h3>Душа последнего умершего в семье</h3>
+          <p>Возвращается почти сразу после ухода, если роду нужно сохранить определённый опыт. Такие дети с раннего возраста необычно зрелые и спокойные, но несут незавершённые эмоции прошлого воплощения. Им очень трудно что-то отпустить — даже переезд или увольнение ощущается как предательство памяти семьи.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="book-product">
+  <div class="wrap">
+    <div class="book-layout">
+      <div class="book-cover-wrap">
+        <img src="book-cover-front.jpg" alt="Обложка книги «Атомы Души»">
+      </div>
+      <div class="book-copy">
+        <div class="eyebrow">Авторская книга</div>
+        <h2 class="serif">Приручите свою карму</h2>
+        <p>Принято считать карму карающей — но она справедлива и щедро вознаграждает тех, кто следует её правилам. Книга простым языком объясняет, как читать родовую линию, месяц воплощения, кармические индикаторы прошлых жизней и обратку кармы по годам — на примерах и с формулами расчёта.</p>
+        <div class="price-row">
+          <div class="price">690 грн</div>
+          <div class="price-note">печатное издание,<br>с доставкой почтой</div>
+        </div>
+        <a class="btn-primary" href="https://wa.me/380638048904?text=Здравствуйте!%20Хочу%20купить%20книгу%20«Атомы%20Души»" target="_blank" rel="noopener">Купить сейчас</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="learning" style="background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="eyebrow">Обучение</div>
+    <h2 class="serif">Чему учит курс «Кармион»</h2>
+    <p style="color:var(--muted); font-size:1rem; max-width:680px; margin:0 0 28px;">Курс проведёт от первого расчёта до полной консультации: как считать всю матрицу и что означает каждое конкретное число.</p>
+    <div class="learn-grid">
+      <div class="learn-item"><span>01</span>Число Сознания — как устроено мышление</div>
+      <div class="learn-item"><span>02</span>Число Характера — темперамент и поведение</div>
+      <div class="learn-item"><span>03</span>Число Судьбы — куда ведёт жизнь</div>
+      <div class="learn-item"><span>04</span>Число Жизненного Пути — через что реализуется</div>
+      <div class="learn-item"><span>05</span>Ядро Личной Силы — источник ресурса</div>
+      <div class="learn-item"><span>06</span>СЖ — сожаление прошлого воплощения</div>
+      <div class="learn-item"><span>07</span>ОПВ — ошибка прошлого воплощения</div>
+      <div class="learn-item"><span>08–09</span>Прогностика «Луны и Солнца» по годам жизни</div>
+    </div>
+    <a class="btn-primary" style="margin-top:28px;" href="course.html">Узнать больше о курсе</a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-layout">
+      <div class="about-photo">
+        <img src="photo-anastasia.jpg" alt="Анастасия Цвиркунова">
+      </div>
+      <div class="about-copy">
+        <div class="about-name">Анастасия Цвиркунова</div>
+        <div class="about-role">Автор системы «Кармион»</div>
+        <p>Я создала «Кармион» — авторскую систему кармической нумерологии, объединяющую классическую, пифагорейскую и ведическую нумерологию, а также нумерологию Таро.</p>
+        <p>Провожу личные консультации, обучаю методике учеников и объясняю карму простым языком — без мистики ради мистики, только то, с чем реально можно работать.</p>
+        <blockquote class="author-quote">«Создавая „Кармион“, я хотела объединить расчёт, структуру и толкование в единую систему — точную, воспроизводимую и живую».</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="wrap">
+    <div class="eyebrow">Отзывы</div>
+    <h2 class="serif">Что говорят те, кто уже посчитал себя</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <video src="testimonial-1.mp4" controls preload="metadata"></video>
+      </div>
+    </div>
+    <p class="testi-more">Скоро здесь появится больше отзывов.</p>
+  </div>
+</section>
+
+<section id="paths">
+  <div class="wrap">
+    <div class="eyebrow">Что ещё у меня есть</div>
+    <h2 class="serif">Продолжить знакомство с «Кармион»</h2>
+    <div class="paths">
+      <div class="path-card">
+        <div class="path-eyebrow">Введение в систему</div>
+        <h3>Семинар «Кармион»</h3>
+        <p>Вводный семинар курса — видео и методичка в закрытой группе телеграм. Считаете свою звезду вместе со мной, без предварительной подготовки.</p>
+        <a class="btn-outline" href="https://t.me/+K65-hEvYtexhN2Vi" target="_blank" rel="noopener">Вступить в группу</a>
+      </div>
+      <div class="path-card">
+        <div class="path-eyebrow">Обучение</div>
+        <h3>Курс по Кармиону</h3>
+        <p>Полное обучение методике: расшифровка каждого числа, связки векторов и прогностика. Для тех, кто хочет считать самостоятельно.</p>
+        <a class="btn-outline" href="course.html">Узнать больше</a>
+      </div>
+      <div class="path-card">
+        <div class="path-eyebrow">Инструмент</div>
+        <h3>Калькулятор звезды</h3>
+        <p>Рассчитайте свою полную звезду «Кармион» онлайн — все шесть Лучей и кармические индикаторы с расшифровкой.</p>
+        <a class="btn-outline" href="calculator-overview.html">Узнать больше</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">АТОМЫ ДУШИ · Анастасия Цвиркунова (Щетинина)</div>
+</footer>
+
+</body>
+</html>
