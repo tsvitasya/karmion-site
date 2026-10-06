@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karmion — Karmic Numerology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg: #fbf6ec;
+    --bg-2: #f5ecd9;
+    --panel: #ffffff;
+    --gold: #b8863c;
+    --gold-deep: #96692a;
+    --gold-light: #e3c07f;
+    --sky: #7fabd6;
+    --ink: #332b22;
+    --muted: #7a7263;
+    --line: rgba(184,134,60,0.25);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(900px 500px at 10% -10%, rgba(127,171,214,0.18), transparent 60%),
+      radial-gradient(800px 500px at 100% 0%, rgba(227,192,127,0.35), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Jost',sans-serif;
+    font-weight:300;
+    line-height:1.65;
+  }
+  .serif{ font-family:'Cormorant Garamond', serif; }
+  .wrap{ max-width:960px; margin:0 auto; padding:0 24px; }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  .lang-switch{
+    position:fixed; top:14px; right:14px; z-index:1000;
+    display:flex; gap:4px; background:var(--panel); border:1px solid var(--line);
+    border-radius:20px; padding:4px; box-shadow:0 8px 20px -10px rgba(51,43,34,0.3);
+  }
+  .lang-switch a{
+    display:inline-block; padding:6px 12px; border-radius:16px; text-decoration:none;
+    font-family:'Jost',sans-serif; font-size:0.78rem; font-weight:500; color:var(--muted);
+  }
+  .lang-switch a.active{ background:var(--gold); color:#fff; }
+
+  header.hero{ padding:80px 0 40px; text-align:center; }
+  .kicker{ text-transform:uppercase; letter-spacing:0.28em; font-size:0.7rem; color:var(--gold-deep); margin-bottom:16px; }
+  .hero h1{ font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:600; font-size:3.4rem; color:var(--gold-deep); margin:0 0 6px; }
+  .hero p.sub{ font-family:'Cormorant Garamond', serif; font-size:1.3rem; color:var(--ink); opacity:0.75; margin:0 0 22px; }
+  .hero p.desc{ max-width:560px; margin:0 auto; color:var(--muted); font-size:1rem; }
+
+  .hero-banner{ max-width:340px; margin:0 auto; padding:0 24px; }
+  .hero-banner img{ width:100%; border-radius:8px; box-shadow:0 30px 60px -25px rgba(51,43,34,0.4); }
+
+  section{ padding:56px 0; }
+  .eyebrow{ font-size:0.72rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--gold-deep); margin-bottom:10px; }
+  section h2{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:2rem; color:var(--ink); margin:0 0 18px; }
+
+  .prose{ max-width:720px; }
+  .prose p{ font-size:1rem; color:var(--ink); opacity:0.92; margin:0 0 18px; }
+  .prose h3{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.3rem; color:var(--gold-deep); margin:28px 0 10px; }
+  .prose ul{ margin:0 0 18px; padding-left:22px; }
+  .prose li{ font-size:0.98rem; color:var(--ink); opacity:0.92; margin-bottom:8px; }
+
+  #book-product{ background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .book-layout{ display:grid; grid-template-columns:280px 1fr; gap:48px; align-items:center; }
+  .book-cover-wrap{ position:relative; }
+  .book-cover-wrap img{ border-radius:4px; box-shadow:0 24px 50px -20px rgba(150,105,42,0.45); }
+  .book-copy p{ color:var(--muted); font-size:1rem; margin-bottom:16px; }
+  .price-row{ display:flex; align-items:baseline; gap:14px; margin:24px 0 20px; }
+  .price{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:2.6rem; color:var(--gold-deep); }
+  .price-note{ font-size:0.82rem; color:var(--muted); }
+  a.btn-primary{
+    display:inline-block; text-decoration:none;
+    padding:16px 38px; background:linear-gradient(120deg, var(--gold), var(--gold-light));
+    color:#fff; font-family:'Jost',sans-serif; font-weight:600; letter-spacing:0.03em;
+    font-size:1rem; border-radius:3px; box-shadow:0 12px 26px -10px rgba(184,134,60,0.55);
+    transition:transform .18s ease;
+  }
+  a.btn-primary:hover{ transform:translateY(-2px); }
+  @media (max-width: 680px){
+    .book-layout{ grid-template-columns:1fr; text-align:center; }
+    .book-cover-wrap{ max-width:240px; margin:0 auto; }
+    .price-row{ justify-content:center; }
+  }
+
+  .about-layout{ display:grid; grid-template-columns:220px 1fr; gap:44px; align-items:start; }
+  .about-photo img{ border-radius:6px; box-shadow:0 20px 40px -18px rgba(51,43,34,0.35); }
+  .about-copy p{ color:var(--muted); font-size:0.98rem; margin-bottom:14px; }
+  .about-name{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.5rem; color:var(--ink); margin:0 0 4px; }
+  .about-role{ font-size:0.85rem; color:var(--gold-deep); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:18px; }
+  .author-quote{
+    margin:22px 0 0; padding-left:18px; border-left:3px solid var(--gold);
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem;
+    color:var(--gold-deep);
+  }
+  @media (max-width: 680px){
+    .about-layout{ grid-template-columns:1fr; text-align:center; }
+    .about-photo{ max-width:220px; margin:0 auto; }
+  }
+
+  #testimonials{ background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .testi-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:20px; }
+  .testi-card{ background:var(--panel); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+  .testi-card video{ width:100%; display:block; background:#000; }
+  .testi-more{ color:var(--muted); font-size:0.9rem; font-style:italic; margin-top:18px; }
+
+  .tiers{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; align-items:stretch; }
+  .btn-row{ display:flex; gap:10px; }
+  .btn-row a{ flex:1; min-width:0; padding-left:10px; padding-right:10px; }
+  .tier-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    padding:30px 24px; text-align:left; display:flex; flex-direction:column;
+  }
+  .tier-card.featured{
+    border:2px solid var(--gold); box-shadow:0 20px 40px -22px rgba(150,105,42,0.45);
+    transform:translateY(-6px);
+  }
+  .tier-num{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.6rem; color:var(--gold); opacity:0.6; margin-bottom:8px; }
+  .tier-card h3{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.3rem; margin:0 0 10px; color:var(--ink); }
+  .tier-desc{ font-size:0.88rem; color:var(--muted); margin:0 0 18px; flex-grow:1; }
+  .tier-price{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.5rem; color:var(--gold-deep); margin-bottom:18px; }
+  .price-strike{ text-decoration:line-through; color:var(--muted); font-size:1.1rem; font-weight:500; margin-right:8px; }
+  a.btn-outline{
+    display:inline-block; text-align:center; text-decoration:none;
+    padding:12px 18px; border:1px solid var(--gold); border-radius:3px;
+    color:var(--gold-deep); font-family:'Jost',sans-serif; font-weight:500; font-size:0.9rem;
+    transition:background .18s ease, color .18s ease;
+  }
+  a.btn-outline:hover{ background:var(--gold); color:#fff; }
+  @media (max-width: 720px){
+    .tiers{ grid-template-columns:1fr; }
+    .tier-card.featured{ transform:none; }
+  }
+
+  footer{ text-align:center; padding:48px 0; color:var(--muted); font-size:0.8rem; }
+
+  .btn-calc-hero{
+    display:inline-flex; align-items:center; gap:10px; text-decoration:none;
+    margin-top:26px; padding:19px 40px;
+    background:linear-gradient(120deg, var(--gold-deep), var(--gold), var(--gold-light));
+    background-size:200% auto;
+    color:#fff; font-family:'Jost',sans-serif; font-weight:600; font-size:1.05rem; letter-spacing:0.02em;
+    border-radius:50px; box-shadow:0 14px 34px -10px rgba(150,105,42,0.6);
+    animation:calcPulse 2.6s ease-in-out infinite;
+    transition:transform .18s ease, background-position .4s ease;
+  }
+  .btn-calc-hero:hover{ transform:translateY(-3px) scale(1.02); background-position:right center; }
+  @keyframes calcPulse{
+    0%, 100% { box-shadow:0 14px 34px -10px rgba(150,105,42,0.6); }
+    50% { box-shadow:0 14px 44px -6px rgba(198,161,91,0.85); }
+  }
+
+  .floating-calc-btn{
+    position:fixed; bottom:22px; right:22px; z-index:999;
+    display:flex; align-items:center; gap:8px; text-decoration:none;
+    padding:15px 24px;
+    background:linear-gradient(120deg, var(--gold-deep), var(--gold));
+    color:#fff; font-family:'Jost',sans-serif; font-weight:600; font-size:0.92rem;
+    border-radius:50px; box-shadow:0 12px 28px -8px rgba(150,105,42,0.65);
+    animation:calcPulse 2.6s ease-in-out infinite;
+    transition:transform .18s ease;
+  }
+  .floating-calc-btn:hover{ transform:translateY(-2px) scale(1.03); }
+  @media (max-width: 560px){
+    .floating-calc-btn{ bottom:14px; right:14px; left:14px; justify-content:center; }
+    .btn-calc-hero{ width:100%; justify-content:center; padding:18px 20px; font-size:0.95rem; }
+    .lang-switch{ top:auto; bottom:80px; right:14px; }
+  }
+
+  .system-layout{ display:grid; grid-template-columns:280px 1fr; gap:40px; align-items:center; margin-top:28px; }
+  .system-anatomy{ margin-top:28px; }
+  .system-anatomy img{ width:100%; border-radius:6px; box-shadow:0 20px 40px -18px rgba(51,43,34,0.35); }
+  .grid3col{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+  .digit-card{ background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:20px 22px; }
+  .digit-card h3{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.05rem; margin:0 0 8px; color:var(--gold-deep); }
+  .digit-card p{ margin:0; font-size:0.88rem; color:var(--muted); }
+  @media (max-width: 720px){ .grid3col{ grid-template-columns:1fr; } }
+  @media (max-width: 720px){
+    .system-layout{ grid-template-columns:1fr; }
+    .system-star{ max-width:280px; margin:0 auto; }
+  }
+
+  .learn-grid{ display:flex; flex-direction:column; gap:2px; }
+  .learn-item{
+    display:flex; align-items:baseline; gap:16px;
+    padding:14px 0; border-top:1px solid var(--line); font-size:0.95rem; color:var(--ink);
+  }
+  .learn-item:last-child{ border-bottom:1px solid var(--line); }
+  .learn-item span{
+    font-family:'Cormorant Garamond', serif; font-weight:600; color:var(--gold-deep);
+    min-width:52px; font-size:1.05rem;
+  }
+
+  #ancestor-soul{
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(184,134,60,0.07) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(184,134,60,0.07) 40px),
+      var(--bg-2);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .gift-badge{
+    display:inline-block; font-size:0.78rem; font-weight:500; letter-spacing:0.04em;
+    background:var(--panel); border:1px solid var(--gold); color:var(--gold-deep);
+    padding:6px 16px; border-radius:20px; margin-bottom:14px;
+  }
+  .ancestor-hint{
+    display:inline-block; background:var(--panel); border:1px solid var(--gold);
+    color:var(--gold-deep); font-size:0.88rem; padding:12px 18px; border-radius:3px;
+    margin-bottom:36px;
+  }
+  .matrix-block{ margin-bottom:40px; }
+  .matrix-title{
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.4rem;
+    color:var(--ink); margin:0 0 20px; padding-bottom:10px; border-bottom:1px solid var(--gold);
+  }
+  .matrix-grid{ display:grid; gap:18px; }
+  .matrix-grid-3{ grid-template-columns:repeat(3, 1fr); }
+  .matrix-grid-2{ grid-template-columns:repeat(2, 1fr); }
+  .matrix-card{
+    position:relative; background:var(--panel); border:1px solid var(--gold);
+    padding:22px 20px; border-radius:2px;
+  }
+  .matrix-card::before, .matrix-card::after{
+    content:""; position:absolute; width:10px; height:10px;
+    border-color:var(--gold-deep); opacity:0.7;
+  }
+  .matrix-card::before{ top:-1px; left:-1px; border-top:2px solid; border-left:2px solid; }
+  .matrix-card::after{ bottom:-1px; right:-1px; border-bottom:2px solid; border-right:2px solid; }
+  .matrix-card-featured{ border:2px solid var(--gold-deep); box-shadow:0 14px 30px -16px rgba(150,105,42,0.5); }
+  .matrix-nums{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.7rem; color:var(--gold-deep); margin-bottom:6px; }
+  .matrix-label{ font-size:0.95rem; font-weight:500; color:var(--ink); margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--line); }
+  .matrix-card p{ margin:0 0 10px; font-size:0.85rem; color:var(--muted); line-height:1.5; }
+  .matrix-card p:last-child{ margin-bottom:0; }
+  .matrix-card p b{ color:var(--ink); }
+  @media (max-width: 800px){
+    .matrix-grid-3{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 560px){
+    .matrix-grid-3, .matrix-grid-2{ grid-template-columns:1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="lang-switch"><a href="index.html">RU</a><a href="index-ua.html">UA</a><a href="index-en.html" class="active">EN</a></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Karmic Numerology</div>
+    <h1 class="serif">Кармion</h1>
+    <p class="sub">An original system for reading destiny through your birth date</p>
+    <p class="desc">Ancestral line, karmic indicators of past lives, and the six Rays of personality — everything your birth date carries can be read precisely, not approximately.</p>
+    <a class="btn-calc-hero" href="calculator-overview.html">🔮 Calculate Your Karmion Star</a>
+  </div>
+</header>
+
+<div class="hero-banner">
+  <img src="karmion-star.jpg" alt="The Karmion Star">
+</div>
+
+<section id="numerology-intro">
+  <div class="wrap">
+    <div class="eyebrow">Where it all begins</div>
+    <h2 class="serif">What is numerology</h2>
+    <div class="prose">
+      <p>Numerology is the study of how numbers relate to a person's character, destiny, and life events. At its core lies the idea that a birth date, a name, or other meaningful numbers are not just a random set of digits, but a kind of code that can be read and interpreted. Numerology's roots go back thousands of years — numbers were revered as sacred symbols in Ancient Egypt, Babylon, India, and Greece. Over time, different cultures developed different schools of working with numbers: some centered on the birth date, others on the name, others on the connection between numbers and planets or archetypes. It is precisely from this diversity of traditions that the three systems behind Karmion were born: Pythagorean numerology, Vedic numerology, and Tarot numerology.</p>
+      <h3>Pythagorean Numerology</h3>
+      <p>This system is named after the ancient Greek philosopher Pythagoras, who believed that numbers and the proportions between them underlie the structure of the universe — meaning that by understanding numbers, one can understand the laws the world is built on. The classic method of Pythagorean numerology is reduction: any number, however large, is added digit by digit until a single-digit value from 1 to 9 is reached, and it is these "pure" numbers that carry the core meaning. Each such number is believed to describe a specific set of character traits — for example, one is linked to leadership and independence, while nine is linked to wisdom and the completion of cycles. The best-known practical tool of this tradition is the Pythagorean square (psychomatrix): the birth date is broken down into digits that form a 3×3 table showing a person's strengths and weaknesses.</p>
+      <h3>Vedic Numerology</h3>
+      <p>This system comes from ancient India and is closely tied to Vedic astrology. Its key difference from the Pythagorean approach is that here, each number from 1 to 9 is not just an abstract symbol but the embodiment of a specific planet and its energy: one is linked to the Sun, two to the Moon, and so on. It is believed that through the birth date a person receives the vibration of certain planets — and with it, their qualities, lessons, and karmic tasks. Unlike Western numerology, which mainly emphasizes the destiny number, the Vedic tradition considers several key numbers at once — the soul number, the destiny number, and the name number — and how they combine, support, or conflict with one another based on their planetary nature.</p>
+      <h3>Tarot Numerology</h3>
+      <p>Here, numbers are linked to the 22 Major Arcana of the Tarot deck — from the Fool (0) to the World (21). Each arcanum is not a fortune-telling card in the usual sense, but an archetype — an entire life theme: the Magician represents beginnings and will, the Hermit represents solitude and wisdom, Death represents transformation and renewal. In Tarot numerology, a birth date (and sometimes other meaningful numbers) is reduced to a range from 1 to 22 to find "your" arcanum — an archetypal energy describing character, life purpose, and the lesson a person is meant to go through. This approach offers a more vivid, symbolic language for describing personality, complementing the plain numerical values of classical numerology.</p>
+    </div>
+  </div>
+</section>
+
+<section id="system-explained" style="background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="eyebrow">Karmion: how the system works</div>
+    <h2 class="serif">Four traditions, one language</h2>
+    <div class="prose">
+      <p>Karmion is built on four branches of numerology: Pythagorean numerology, karmic numerology, Vedic numerology, and Tarot numerology. Each one offers its own perspective on what lies behind a person's birth date, and its own way of describing it.</p>
+      <p>On its own, each tradition gives only part of the picture. Pythagorean numerology maps out character and life path precisely through numbers, but rarely explains where those traits come from. Karmic numerology reveals the roots — the ancestral scenarios and tasks a person was born with — but is less specific for everyday use. Vedic numerology adds a deeper, more ancient layer of understanding of destiny. And Tarot numbers add imagery — something that makes a number easier to feel and remember, rather than simply read about.</p>
+      <p>Karmion weaves these four voices into one coherent story about a person: where one number names a character trait, another explains its origin, a third reveals its deeper meaning in destiny, and a fourth provides an image that makes the trait truly understandable.</p>
+      <h3>Why these elements specifically</h3>
+      <p>Not every method that exists in numerology made it into the system — only those that have proven themselves in practice. The selection was based on several principles:</p>
+      <ul>
+        <li>proven in practice — tested on real consultations and real lives, not just in theory;</li>
+        <li>defines the person — offers a working portrait of someone, not an abstract trait;</li>
+        <li>easy to apply — something you can check yourself against and live with, not read once and forget;</li>
+        <li>informative — each number adds a new layer of understanding instead of repeating the last one.</li>
+      </ul>
+      <p>This selection was made deliberately: instead of a bulky book running hundreds of pages, where it's easy to get lost among countless numbers and layers, Karmion offers a compact, coherent picture — something you can actually hold in your head and apply to yourself.</p>
+      <h3>What a Karmion reading gives you</h3>
+      <p>A Karmion star reading is not a set of disconnected figures from different traditions, but a coherent portrait of a person: who they are, which ancestral scenarios they carry, which lessons from past lives lie behind today's struggles, and what shapes their destiny long before the moment of birth.</p>
+      <p>This is not fortune-telling, nor generic phrases that fit everyone. It's a working tool you can return to again and again — to check in at a difficult decision point and better understand why the same situations keep repeating in your life.</p>
+    </div>
+  </div>
+</section>
+
+<section id="system">
+  <div class="wrap">
+    <div class="eyebrow">Original methodology</div>
+    <h2 class="serif">The Karmion System</h2>
+    <p style="color:var(--muted); font-size:1rem; max-width:680px; margin:0 0 12px;">Karmion combines classical, Pythagorean, and Vedic numerology, as well as Tarot numerology, into a single matrix of 22 karmic energies. The system's goal isn't to describe character, but to give you a tool: to show where you're currently living your energy in the negative, and where to redirect it so life starts falling into place.</p>
+
+    <div class="system-anatomy">
+      <img src="karmion-anatomy.jpg" alt="Anatomy of the Karmion Star">
+    </div>
+    <div class="grid3col" style="margin-top:24px;">
+      <div class="digit-card"><h3>Ancestral Task</h3><p>Based on birth month — a karmic program inherited from your lineage.</p></div>
+      <div class="digit-card"><h3>SZH and OPV</h3><p>Regret and mistake of a past life — what carries over from a previous lifetime.</p></div>
+      <div class="digit-card"><h3>The Six Rays</h3><p>Number of Consciousness, Character, Destiny, Life Path, Personal Power Core, Global Vector.</p></div>
+    </div>
+    <p style="color:var(--muted); font-size:0.92rem; margin-top:20px;">All nine numbers come together to form the Karmion star — a six-pointed star with three karmic values at its center.</p>
+    <a class="btn-calc-hero" href="calculator-overview.html">🔮 Calculate Your Star Right Now</a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-layout">
+      <div class="about-photo">
+        <img src="photo-anastasia.jpg" alt="Anastasiia Tsvirkunova">
+      </div>
+      <div class="about-copy">
+        <div class="about-name">Анастасія Цвіркунова</div>
+        <div class="about-role">Creator of the Karmion System</div>
+        <p>I created Karmion — an original system of karmic numerology that combines classical, Pythagorean, and Vedic numerology, along with Tarot numerology.</p>
+        <p>I offer personal consultations, teach the methodology to students, and explain karma in plain language — no mysticism for its own sake, only what you can actually work with.</p>
+        <blockquote class="author-quote">"In creating Karmion, I wanted to combine calculation, structure, and interpretation into one system — precise, reproducible, and alive."</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="wrap">
+    <div class="eyebrow">Testimonials</div>
+    <h2 class="serif">What people who've already calculated themselves say</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <video src="testimonial-1.mp4" controls preload="metadata"></video>
+      </div>
+    </div>
+    <p class="testi-more">More testimonials coming soon.</p>
+  </div>
+</section>
+
+<section id="learning" style="background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="eyebrow">Training</div>
+    <h2 class="serif">What the Karmion course teaches</h2>
+    <p style="color:var(--muted); font-size:1rem; max-width:680px; margin:0 0 28px;">The course will take you from your first calculation to a full consultation: how to calculate the entire matrix and what each specific number means.</p>
+    <div class="learn-grid">
+      <div class="learn-item"><span>01</span>Number of Consciousness — how thinking is structured</div>
+      <div class="learn-item"><span>02</span>Number of Character — temperament and behavior</div>
+      <div class="learn-item"><span>03</span>Number of Destiny — where life is leading</div>
+      <div class="learn-item"><span>04</span>Life Path Number — how it's realized</div>
+      <div class="learn-item"><span>05</span>Personal Power Core — the source of your resource</div>
+      <div class="learn-item"><span>06</span>SZH — regret of a past life</div>
+      <div class="learn-item"><span>07</span>OPV — mistake of a past life</div>
+      <div class="learn-item"><span>08–09</span>"Moon and Sun" forecasting by years of life</div>
+    </div>
+    <a class="btn-primary" style="margin-top:28px;" href="course.html">Learn more about the course</a>
+  </div>
+</section>
+
+<section id="levels">
+  <div class="wrap">
+    <div class="eyebrow">Formats</div>
+    <h2 class="serif">Three Levels of Getting to Know Karmion</h2>
+    <p style="color:var(--muted); font-size:1rem; max-width:640px; margin:0 0 32px;">From a first introduction to full command of the method — choose how deep you want to go.</p>
+    <div class="tiers">
+      <div class="tier-card">
+        <div class="tier-num">01</div>
+        <h3>Karmion Seminar</h3>
+        <p class="tier-desc">An introductory seminar — video and a guide in a private group. You calculate your star together with me, no preparation needed.</p>
+        <div class="tier-price"><span class="price-strike">1 200 UAH</span> Currently free</div>
+        <div class="btn-row">
+          <a class="btn-outline" href="https://wa.me/380638048904?text=Hello!%20I%27d%20like%20to%20join%20the%20Karmion%20seminar" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn-outline" href="https://t.me/Tasya_tsvir?text=Hello!%20I%27d%20like%20to%20join%20the%20Karmion%20seminar" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+      <div class="tier-card featured">
+        <div class="tier-num">02</div>
+        <h3>Course + Calculator</h3>
+        <p class="tier-desc">Full training in the methodology — decoding every number, combinations, forecasting — plus personal access to the star calculator.</p>
+        <div class="tier-price">10 000 UAH</div>
+        <div class="btn-row">
+          <a class="btn-primary" href="https://wa.me/380638048904?text=Hello!%20I%27d%20like%20the%20Course%20%2B%20Calculator%20package" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn-primary" href="https://t.me/Tasya_tsvir?text=Hello!%20I%27d%20like%20the%20Course%20%2B%20Calculator%20package" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-num">03</div>
+        <h3>Course + Calculator + Book</h3>
+        <p class="tier-desc">Everything from level two, plus the printed book "Atoms of the Soul" delivered to you — for those who want the methodology on paper too.</p>
+        <div class="tier-price">12 000 UAH</div>
+        <div class="btn-row">
+          <a class="btn-outline" href="https://wa.me/380638048904?text=Hello!%20I%27d%20like%20Course%20%2B%20Calculator%20%2B%20the%20book%20Atoms%20of%20the%20Soul" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn-outline" href="https://t.me/Tasya_tsvir?text=Hello!%20I%27d%20like%20Course%20%2B%20Calculator%20%2B%20the%20book%20Atoms%20of%20the%20Soul" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ancestor-soul">
+  <div class="wrap">
+    <div class="gift-badge">🎁 A gift for you</div>
+    <h2 class="serif">Whose ancestral soul lives in your body?</h2>
+    <p style="color:var(--muted); font-size:0.95rem; max-width:640px; margin:0 0 10px;">A birth date is an indicator of which ancestral soul has reincarnated again — and what task of the lineage it carries from childhood on.</p>
+    <div class="ancestor-hint">Find your birth date (or your child's) below to discover the karmic blueprint of the soul.</div>
+
+    <div class="matrix-block">
+      <h3 class="matrix-title">Matrix 1: Pillars of the Family Tree</h3>
+      <div class="matrix-grid matrix-grid-3">
+        <div class="matrix-card">
+          <div class="matrix-nums">1, 8, 17, 26</div>
+          <div class="matrix-label">Strong Ancestor</div>
+          <p><b>Who returned:</b> A famous, wise ancestor. The lineage needs support.</p>
+          <p><b>In childhood:</b> Independent, won't tolerate being controlled.</p>
+          <p><b>The risk:</b> Parental pressure breaks them from within; their strength has nowhere to go.</p>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-nums">7, 16, 25</div>
+          <div class="matrix-label">Forefathers</div>
+          <p><b>Who returned:</b> A grandfather or great-grandfather (even in a girl's body). A masculine core.</p>
+          <p><b>In childhood:</b> Grow up early, find it hard to accept help.</p>
+          <p><b>The risk:</b> Live with the destructive feeling that they have no right to be weak.</p>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-nums">2, 11, 20, 29</div>
+          <div class="matrix-label">Foremothers</div>
+          <p><b>Who returned:</b> A grandmother or great-grandmother on the maternal line.</p>
+          <p><b>In childhood:</b> An innate over-responsibility for others' emotions.</p>
+          <p><b>The risk:</b> Repeating the fate of the women in the lineage — a life lived only for others.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="matrix-block">
+      <h3 class="matrix-title">Matrix 2: Karmic Debtors</h3>
+      <div class="matrix-grid matrix-grid-2">
+        <div class="matrix-card">
+          <div class="matrix-nums">4, 31</div>
+          <div class="matrix-label">Father's Debtor</div>
+          <p><b>Essence:</b> The soul came to share karma with the father, if his lineage has sinned (infidelity, divorce, addictions).</p>
+          <p><b>Zone of conflict:</b> The patriarchal line.</p>
+          <p><b>Recurring pattern:</b> In adult life, the pattern of pressure continues through bosses and tough men who test their endurance.</p>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-nums">3, 30</div>
+          <div class="matrix-label">Mother's Debtor</div>
+          <p><b>Essence:</b> The soul returned to resolve a longstanding conflict with the female branch of the family.</p>
+          <p><b>Zone of conflict:</b> The bond with the mother is always complicated.</p>
+          <p><b>Recurring pattern:</b> The conflict carries over onto every woman around them (friends, colleagues, mothers-in-law) until the female line is healed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="matrix-block">
+      <h3 class="matrix-title">Matrix 3: Interrupted and Unfinished Cycles</h3>
+      <div class="matrix-grid matrix-grid-2">
+        <div class="matrix-card matrix-card-wide">
+          <div class="matrix-nums">10, 19, 22, 28</div>
+          <div class="matrix-label">Unborn Soul</div>
+          <p><b>Who this is:</b> The lineage's last aborted soul, given a second chance.</p>
+          <p><b>Hidden pain:</b> A constant, unexplainable feeling of having to "earn" the right to live.</p>
+          <p><b>Behavior:</b> A painful fear of losing relationships; they settle for less where they're undervalued.</p>
+        </div>
+        <div class="matrix-card matrix-card-wide">
+          <div class="matrix-nums">12, 13, 14, 18</div>
+          <div class="matrix-label">The Last to Die</div>
+          <p><b>Who this is:</b> The soul returned almost immediately after passing, to preserve important experience.</p>
+          <p><b>Hidden pain:</b> Carries unresolved emotions from a past life.</p>
+          <p><b>Behavior:</b> Unusually mature from childhood, yet utterly unable to let go of the past (a move feels like a betrayal).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="matrix-block">
+      <h3 class="matrix-title">Matrix 4: Outsiders, Outcasts, and Healers</h3>
+      <div class="matrix-grid matrix-grid-3">
+        <div class="matrix-card">
+          <div class="matrix-nums">5, 23</div>
+          <div class="matrix-label">The Erased</div>
+          <p><b>Who this is:</b> Souls of rejected, exiled relatives.</p>
+          <p><b>Their cross:</b> Feel like outsiders in the family, constantly forced to prove their right to be themselves and follow their own path.</p>
+        </div>
+        <div class="matrix-card matrix-card-featured">
+          <div class="matrix-nums">6, 21, 24</div>
+          <div class="matrix-label">New Soul</div>
+          <p><b>Who this is:</b> A soul completely new to this ancestral hierarchy, entering it for the first time.</p>
+          <p><b>Their cross:</b> Feel "different" even in a loving family.</p>
+          <p><b>Mission:</b> They are the ones who break multi-generational toxic patterns (divorce, poverty).</p>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-nums">9, 27</div>
+          <div class="matrix-label">The Knowing Ones</div>
+          <p><b>Who this is:</b> A magical practitioner or healer of the lineage.</p>
+          <p><b>Their cross:</b> Unconsciously absorb others' pain. If they reject the gift, life creates crises that demand intuition.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="book-product">
+  <div class="wrap">
+    <div class="book-layout">
+      <div class="book-cover-wrap">
+        <img src="book-cover-front.jpg" alt="Cover of "Atoms of the Soul"">
+      </div>
+      <div class="book-copy">
+        <div class="eyebrow">The author's book</div>
+        <h2 class="serif">Tame Your Karma</h2>
+        <p>Karma is usually thought of as punishing — but it's fair, and generously rewards those who follow its rules. The book explains, in plain language, how to read your ancestral line, month of incarnation, karmic indicators of past lives, and karmic feedback by year — with examples and calculation formulas.</p>
+        <div class="price-row">
+          <div class="price-note">Printed edition, delivered by mail</div>
+        </div>
+        <a class="btn-primary" href="#levels">Included in Level 3</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">KARMION · Anastasiia Tsvirkunova (Shchetinina)</div>
+</footer>
+
+<a class="floating-calc-btn" href="calculator-overview.html">🔮 Star Calculator</a>
+
+</body>
+</html>
