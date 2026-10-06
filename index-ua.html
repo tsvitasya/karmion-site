@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кармion — кармічна нумерологія</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg: #fbf6ec;
+    --bg-2: #f5ecd9;
+    --panel: #ffffff;
+    --gold: #b8863c;
+    --gold-deep: #96692a;
+    --gold-light: #e3c07f;
+    --sky: #7fabd6;
+    --ink: #332b22;
+    --muted: #7a7263;
+    --line: rgba(184,134,60,0.25);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(900px 500px at 10% -10%, rgba(127,171,214,0.18), transparent 60%),
+      radial-gradient(800px 500px at 100% 0%, rgba(227,192,127,0.35), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Jost',sans-serif;
+    font-weight:300;
+    line-height:1.65;
+  }
+  .serif{ font-family:'Cormorant Garamond', serif; }
+  .wrap{ max-width:960px; margin:0 auto; padding:0 24px; }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  .lang-switch{
+    position:fixed; top:14px; right:14px; z-index:1000;
+    display:flex; gap:4px; background:var(--panel); border:1px solid var(--line);
+    border-radius:20px; padding:4px; box-shadow:0 8px 20px -10px rgba(51,43,34,0.3);
+  }
+  .lang-switch a{
+    display:inline-block; padding:6px 12px; border-radius:16px; text-decoration:none;
+    font-family:'Jost',sans-serif; font-size:0.78rem; font-weight:500; color:var(--muted);
+  }
+  .lang-switch a.active{ background:var(--gold); color:#fff; }
+
+  header.hero{ padding:80px 0 40px; text-align:center; }
+  .kicker{ text-transform:uppercase; letter-spacing:0.28em; font-size:0.7rem; color:var(--gold-deep); margin-bottom:16px; }
+  .hero h1{ font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:600; font-size:3.4rem; color:var(--gold-deep); margin:0 0 6px; }
+  .hero p.sub{ font-family:'Cormorant Garamond', serif; font-size:1.3rem; color:var(--ink); opacity:0.75; margin:0 0 22px; }
+  .hero p.desc{ max-width:560px; margin:0 auto; color:var(--muted); font-size:1rem; }
+
+  .hero-banner{ max-width:340px; margin:0 auto; padding:0 24px; }
+  .hero-banner img{ width:100%; border-radius:8px; box-shadow:0 30px 60px -25px rgba(51,43,34,0.4); }
+
+  section{ padding:56px 0; }
+  .eyebrow{ font-size:0.72rem; text-transform:uppercase; letter-spacing:0.16em; color:var(--gold-deep); margin-bottom:10px; }
+  section h2{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:2rem; color:var(--ink); margin:0 0 18px; }
+
+  .prose{ max-width:720px; }
+  .prose p{ font-size:1rem; color:var(--ink); opacity:0.92; margin:0 0 18px; }
+  .prose h3{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.3rem; color:var(--gold-deep); margin:28px 0 10px; }
+  .prose ul{ margin:0 0 18px; padding-left:22px; }
+  .prose li{ font-size:0.98rem; color:var(--ink); opacity:0.92; margin-bottom:8px; }
+
+  #book-product{ background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .book-layout{ display:grid; grid-template-columns:280px 1fr; gap:48px; align-items:center; }
+  .book-cover-wrap{ position:relative; }
+  .book-cover-wrap img{ border-radius:4px; box-shadow:0 24px 50px -20px rgba(150,105,42,0.45); }
+  .book-copy p{ color:var(--muted); font-size:1rem; margin-bottom:16px; }
+  .price-row{ display:flex; align-items:baseline; gap:14px; margin:24px 0 20px; }
+  .price{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:2.6rem; color:var(--gold-deep); }
+  .price-note{ font-size:0.82rem; color:var(--muted); }
+  a.btn-primary{
+    display:inline-block; text-decoration:none;
+    padding:16px 38px; background:linear-gradient(120deg, var(--gold), var(--gold-light));
+    color:#fff; font-family:'Jost',sans-serif; font-weight:600; letter-spacing:0.03em;
+    font-size:1rem; border-radius:3px; box-shadow:0 12px 26px -10px rgba(184,134,60,0.55);
+    transition:transform .18s ease;
+  }
+  a.btn-primary:hover{ transform:translateY(-2px); }
+  @media (max-width: 680px){
+    .book-layout{ grid-template-columns:1fr; text-align:center; }
+    .book-cover-wrap{ max-width:240px; margin:0 auto; }
+    .price-row{ justify-content:center; }
+  }
+
+  .about-layout{ display:grid; grid-template-columns:220px 1fr; gap:44px; align-items:start; }
+  .about-photo img{ border-radius:6px; box-shadow:0 20px 40px -18px rgba(51,43,34,0.35); }
+  .about-copy p{ color:var(--muted); font-size:0.98rem; margin-bottom:14px; }
+  .about-name{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.5rem; color:var(--ink); margin:0 0 4px; }
+  .about-role{ font-size:0.85rem; color:var(--gold-deep); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:18px; }
+  .author-quote{
+    margin:22px 0 0; padding-left:18px; border-left:3px solid var(--gold);
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem;
+    color:var(--gold-deep);
+  }
+  @media (max-width: 680px){
+    .about-layout{ grid-template-columns:1fr; text-align:center; }
+    .about-photo{ max-width:220px; margin:0 auto; }
+  }
+
+  #testimonials{ background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .testi-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:20px; }
+  .testi-card{ background:var(--panel); border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+  .testi-card video{ width:100%; display:block; background:#000; }
+  .testi-more{ color:var(--muted); font-size:0.9rem; font-style:italic; margin-top:18px; }
+
+  .tiers{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; align-items:stretch; }
+  .btn-row{ display:flex; gap:10px; }
+  .btn-row a{ flex:1; min-width:0; padding-left:10px; padding-right:10px; }
+  .tier-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    padding:30px 24px; text-align:left; display:flex; flex-direction:column;
+  }
+  .tier-card.featured{
+    border:2px solid var(--gold); box-shadow:0 20px 40px -22px rgba(150,105,42,0.45);
+    transform:translateY(-6px);
+  }
+  .tier-num{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.6rem; color:var(--gold); opacity:0.6; margin-bottom:8px; }
+  .tier-card h3{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.3rem; margin:0 0 10px; color:var(--ink); }
+  .tier-desc{ font-size:0.88rem; color:var(--muted); margin:0 0 18px; flex-grow:1; }
+  .tier-price{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.5rem; color:var(--gold-deep); margin-bottom:18px; }
+  .price-strike{ text-decoration:line-through; color:var(--muted); font-size:1.1rem; font-weight:500; margin-right:8px; }
+  a.btn-outline{
+    display:inline-block; text-align:center; text-decoration:none;
+    padding:12px 18px; border:1px solid var(--gold); border-radius:3px;
+    color:var(--gold-deep); font-family:'Jost',sans-serif; font-weight:500; font-size:0.9rem;
+    transition:background .18s ease, color .18s ease;
+  }
+  a.btn-outline:hover{ background:var(--gold); color:#fff; }
+  @media (max-width: 720px){
+    .tiers{ grid-template-columns:1fr; }
+    .tier-card.featured{ transform:none; }
+  }
+
+  footer{ text-align:center; padding:48px 0; color:var(--muted); font-size:0.8rem; }
+
+  .btn-calc-hero{
+    display:inline-flex; align-items:center; gap:10px; text-decoration:none;
+    margin-top:26px; padding:19px 40px;
+    background:linear-gradient(120deg, var(--gold-deep), var(--gold), var(--gold-light));
+    background-size:200% auto;
+    color:#fff; font-family:'Jost',sans-serif; font-weight:600; font-size:1.05rem; letter-spacing:0.02em;
+    border-radius:50px; box-shadow:0 14px 34px -10px rgba(150,105,42,0.6);
+    animation:calcPulse 2.6s ease-in-out infinite;
+    transition:transform .18s ease, background-position .4s ease;
+  }
+  .btn-calc-hero:hover{ transform:translateY(-3px) scale(1.02); background-position:right center; }
+  @keyframes calcPulse{
+    0%, 100% { box-shadow:0 14px 34px -10px rgba(150,105,42,0.6); }
+    50% { box-shadow:0 14px 44px -6px rgba(198,161,91,0.85); }
+  }
+
+  .floating-calc-btn{
+    position:fixed; bottom:22px; right:22px; z-index:999;
+    display:flex; align-items:center; gap:8px; text-decoration:none;
+    padding:15px 24px;
+    background:linear-gradient(120deg, var(--gold-deep), var(--gold));
+    color:#fff; font-family:'Jost',sans-serif; font-weight:600; font-size:0.92rem;
+    border-radius:50px; box-shadow:0 12px 28px -8px rgba(150,105,42,0.65);
+    animation:calcPulse 2.6s ease-in-out infinite;
+    transition:transform .18s ease;
+  }
+  .floating-calc-btn:hover{ transform:translateY(-2px) scale(1.03); }
+  @media (max-width: 560px){
+    .floating-calc-btn{ bottom:14px; right:14px; left:14px; justify-content:center; }
+    .btn-calc-hero{ width:100%; justify-content:center; padding:18px 20px; font-size:0.95rem; }
+    .lang-switch{ top:auto; bottom:80px; right:14px; }
+  }
+
+  .system-layout{ display:grid; grid-template-columns:280px 1fr; gap:40px; align-items:center; margin-top:28px; }
+  .system-anatomy{ margin-top:28px; }
+  .system-anatomy img{ width:100%; border-radius:6px; box-shadow:0 20px 40px -18px rgba(51,43,34,0.35); }
+  .grid3col{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+  .digit-card{ background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:20px 22px; }
+  .digit-card h3{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.05rem; margin:0 0 8px; color:var(--gold-deep); }
+  .digit-card p{ margin:0; font-size:0.88rem; color:var(--muted); }
+  @media (max-width: 720px){ .grid3col{ grid-template-columns:1fr; } }
+  @media (max-width: 720px){
+    .system-layout{ grid-template-columns:1fr; }
+    .system-star{ max-width:280px; margin:0 auto; }
+  }
+
+  .learn-grid{ display:flex; flex-direction:column; gap:2px; }
+  .learn-item{
+    display:flex; align-items:baseline; gap:16px;
+    padding:14px 0; border-top:1px solid var(--line); font-size:0.95rem; color:var(--ink);
+  }
+  .learn-item:last-child{ border-bottom:1px solid var(--line); }
+  .learn-item span{
+    font-family:'Cormorant Garamond', serif; font-weight:600; color:var(--gold-deep);
+    min-width:52px; font-size:1.05rem;
+  }
+
+  #ancestor-soul{
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(184,134,60,0.07) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(184,134,60,0.07) 40px),
+      var(--bg-2);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .gift-badge{
+    display:inline-block; font-size:0.78rem; font-weight:500; letter-spacing:0.04em;
+    background:var(--panel); border:1px solid var(--gold); color:var(--gold-deep);
+    padding:6px 16px; border-radius:20px; margin-bottom:14px;
+  }
+  .ancestor-hint{
+    display:inline-block; background:var(--panel); border:1px solid var(--gold);
+    color:var(--gold-deep); font-size:0.88rem; padding:12px 18px; border-radius:3px;
+    margin-bottom:36px;
+  }
+  .matrix-block{ margin-bottom:40px; }
+  .matrix-title{
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.4rem;
+    color:var(--ink); margin:0 0 20px; padding-bottom:10px; border-bottom:1px solid var(--gold);
+  }
+  .matrix-grid{ display:grid; gap:18px; }
+  .matrix-grid-3{ grid-template-columns:repeat(3, 1fr); }
+  .matrix-grid-2{ grid-template-columns:repeat(2, 1fr); }
+  .matrix-card{
+    position:relative; background:var(--panel); border:1px solid var(--gold);
+    padding:22px 20px; border-radius:2px;
+  }
+  .matrix-card::before, .matrix-card::after{
+    content:""; position:absolute; width:10px; height:10px;
+    border-color:var(--gold-deep); opacity:0.7;
+  }
+  .matrix-card::before{ top:-1px; left:-1px; border-top:2px solid; border-left:2px solid; }
+  .matrix-card::after{ bottom:-1px; right:-1px; border-bottom:2px solid; border-right:2px solid; }
+  .matrix-card-featured{ border:2px solid var(--gold-deep); box-shadow:0 14px 30px -16px rgba(150,105,42,0.5); }
+  .matrix-nums{ font-family:'Cormorant Garamond', serif; font-weight:700; font-size:1.7rem; color:var(--gold-deep); margin-bottom:6px; }
+  .matrix-label{ font-size:0.95rem; font-weight:500; color:var(--ink); margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--line); }
+  .matrix-card p{ margin:0 0 10px; font-size:0.85rem; color:var(--muted); line-height:1.5; }
+  .matrix-card p:last-child{ margin-bottom:0; }
+  .matrix-card p b{ color:var(--ink); }
+  @media (max-width: 800px){
+    .matrix-grid-3{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 560px){
+    .matrix-grid-3, .matrix-grid-2{ grid-template-columns:1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="lang-switch"><a href="index.html">RU</a><a href="index-ua.html" class="active">UA</a><a href="index-en.html">EN</a></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Кармічна нумерологія</div>
+    <h1 class="serif">Кармion</h1>
+    <p class="sub">Авторська система аналізу долі за датою народження</p>
+    <p class="desc">Родова лінія, кармічні індикатори минулих втілень і шість Променів особистості — все, що несе ваша дата народження, можна прочитати точно, а не приблизно.</p>
+    <a class="btn-calc-hero" href="calculator-overview.html">🔮 Розрахувати свою зірку «Кармion»</a>
+  </div>
+</header>
+
+<div class="hero-banner">
+  <img src="karmion-star.jpg" alt="Зірка «Кармion»">
+</div>
+
+<section id="numerology-intro">
+  <div class="wrap">
+    <div class="eyebrow">З чого все починається</div>
+    <h2 class="serif">Що таке нумерологія</h2>
+    <div class="prose">
+      <p>Нумерологія — це вчення про зв'язок чисел із характером людини, її долею та подіями життя. В її основі лежить ідея, що за датою народження, ім'ям або іншими значущими числами криється не випадковий набір цифр, а своєрідний код, який можна прочитати й витлумачити. Коріння нумерології сягає тисячоліть — числа як священні символи шанували в Стародавньому Єгипті, Вавилоні, Індії та Греції. З часом у різних культурах склалися різні школи роботи з числами: десь на перше місце ставили дату народження, десь — ім'я, десь — зв'язок чисел із планетами чи архетипами. Саме з цього розмаїття традицій народилися три системи, які лягли в основу «Кармion»: піфагорійська, ведична нумерологія та нумерологія Таро.</p>
+      <h3>Піфагорійська нумерологія</h3>
+      <p>Ця система пов'язана з ім'ям давньогрецького філософа Піфагора, який вважав, що в основі світобудови лежать числа та пропорції між ними — а отже, пізнавши числа, можна пізнати закони, за якими влаштований світ. Класичний метод піфагорійської нумерології — редукція: будь-яке число, хоч яке велике, послідовно складається цифра до цифри, доки не вийде одноцифрове значення від 1 до 9, і саме ці «чисті» числа несуть основний зміст. Вважається, що кожне таке число описує певний набір якостей характеру — наприклад, одиниця пов'язана з лідерством і самостійністю, а дев'ятка — з мудрістю і завершенням циклів. Найвідоміший практичний інструмент цієї традиції — квадрат Піфагора (психоматриця): дата народження розкладається на цифри, з яких складається таблиця 3×3, що показує сильні й слабкі сторони особистості.</p>
+      <h3>Ведична нумерологія</h3>
+      <p>Ця система прийшла з Стародавньої Індії і нерозривно пов'язана з ведичною астрологією. Її ключова відмінність від піфагорійської в тому, що тут кожне число від 1 до 9 — це не просто абстрактний символ, а уособлення конкретної планети та її енергії: одиниця пов'язана із Сонцем, двійка — з Місяцем, і так далі. Вважається, що через дату народження людина отримує вібрацію певних планет, а отже, і їхні якості, уроки та кармічні завдання. На відміну від західної нумерології, де акцент робиться здебільшого на числі долі, ведична традиція розглядає одразу кілька ключових чисел — число душі, число долі та число імені, — і те, як вони поєднуються між собою, дружать чи конфліктують за своєю планетарною природою.</p>
+      <h3>Нумерологія Таро</h3>
+      <p>Тут числа пов'язуються з 22 Старшими арканами колоди Таро — від Блазня (0) до Світу (21). Кожен аркан — це не ворожильна карта у звичному сенсі, а архетип, ціла життєва тема: Маг — початок і воля, Самітник — усамітнення і мудрість, Смерть — трансформація й оновлення. У нумерології Таро дату народження (а іноді й інші значущі числа) зводять до діапазону від 1 до 22 і таким чином знаходять «свій» аркан — архетипову енергію, яка описує характер, життєве завдання і те, через який урок належить пройти людині. Цей підхід дає більш образну, символічну мову опису особистості — на додаток до сухих числових значень класичної нумерології.</p>
+    </div>
+  </div>
+</section>
+
+<section id="system-explained" style="background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="eyebrow">Кармion: як влаштована система</div>
+    <h2 class="serif">Чотири традиції — одна мова</h2>
+    <div class="prose">
+      <p>В основі «Кармion» лежать чотири напрями нумерології: піфагорійська нумерологія, кармічна нумерологія, ведична нумерологія і нумерологія Таро. У кожної з них — свій погляд на те, що стоїть за датою народження людини, і свій спосіб про це розповідати.</p>
+      <p>Окремо кожна традиція дає лише частину картини. Піфагорійська нумерологія точно розкладає характер і життєвий шлях за числами, але майже не пояснює, звідки ці риси беруться. Кармічна нумерологія розкриває коріння — родові сценарії та завдання, з якими людина прийшла в це життя, — але менш конкретна у повсякденному застосуванні. Ведична нумерологія додає глибший, давніший пласт розуміння долі. А числа Таро дають образність — те, через що число легше відчути і запам'ятати, а не просто прочитати про нього.</p>
+      <p>«Кармion» поєднує ці чотири голоси в одну зв'язну розповідь про людину: там, де одне число називає рису характеру, інше пояснює її походження, третє — її глибший сенс у долі, а четверте дає образ, через який ця риса стає по-справжньому зрозумілою.</p>
+      <h3>Чому саме ці елементи</h3>
+      <p>До системи увійшли не всі існуючі в нумерології методи, а лише ті, що пройшли перевірку на практиці. Відбір будувався на кількох принципах:</p>
+      <ul>
+        <li>перевірено на практиці — на реальних консультаціях і долях, а не лише в теорії;</li>
+        <li>визначає особистість — дає не абстрактну характеристику, а робочий портрет людини;</li>
+        <li>зрозуміло у використанні — з цим можна звірятися і жити, а не прочитати один раз і забути;</li>
+        <li>інформативно — кожне число додає новий шар розуміння, а не дублює попередній.</li>
+      </ul>
+      <p>Такий відбір зроблено свідомо: замість об'ємної книги на кілька сотень сторінок, у якій легко загубитися серед безлічі чисел і шарів, «Кармion» дає компактну і цілісну картину — те, що справді можна втримати в голові й застосувати до себе.</p>
+      <h3>Що дає розрахунок за системою «Кармion»</h3>
+      <p>Розрахунок за зіркою «Кармion» — це не набір розрізнених цифр з різних традицій, а зв'язний портрет людини: хто вона, які сценарії несе з роду, які уроки минулих втілень стоять за сьогоднішніми труднощами і що визначає її долю задовго до моменту народження.</p>
+      <p>Це не ворожіння і не загальні фрази, що підходять усім. Це робочий інструмент, до якого можна повертатися знову і знову — звірятися в момент складного рішення і краще розуміти, чому в житті повторюються одні й ті самі ситуації.</p>
+    </div>
+  </div>
+</section>
+
+<section id="system">
+  <div class="wrap">
+    <div class="eyebrow">Авторська методика</div>
+    <h2 class="serif">Система «Кармion»</h2>
+    <p style="color:var(--muted); font-size:1rem; max-width:680px; margin:0 0 12px;">«Кармion» об'єднує класичну, піфагорійську і ведичну нумерологію, а також нумерологію Таро — в єдину матрицю з 22 кармічних енергій. Мета системи — не описати характер, а дати інструмент: показати, в чому людина зараз проживає свою енергію в мінус, і куди її спрямувати, щоб життя почало налагоджуватися.</p>
+
+    <div class="system-anatomy">
+      <img src="karmion-anatomy.jpg" alt="Анатомія зірки «Кармion»">
+    </div>
+    <div class="grid3col" style="margin-top:24px;">
+      <div class="digit-card"><h3>Родове завдання</h3><p>За місяцем народження — кармічна програма, успадкована від роду.</p></div>
+      <div class="digit-card"><h3>СЖ і ОПВ</h3><p>Жаль і помилка минулого втілення — те, що тягнеться з минулого життя.</p></div>
+      <div class="digit-card"><h3>Шість Променів</h3><p>Число Свідомості, Характеру, Долі, Життєвого Шляху, Ядро Сили, Глобальний Вектор.</p></div>
+    </div>
+    <p style="color:var(--muted); font-size:0.92rem; margin-top:20px;">Усі дев'ять чисел складаються в зірку «Кармion» — шестикутну зірку з трьома кармічними значеннями всередині.</p>
+    <a class="btn-calc-hero" href="calculator-overview.html">🔮 Розрахувати свою зірку прямо зараз</a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-layout">
+      <div class="about-photo">
+        <img src="photo-anastasia.jpg" alt="Anastasiia Tsvirkunova">
+      </div>
+      <div class="about-copy">
+        <div class="about-name">Анастасія Цвіркунова</div>
+        <div class="about-role">Авторка системи «Кармion»</div>
+        <p>Я створила «Кармion» — авторську систему кармічної нумерології, що об'єднує класичну, піфагорійську і ведичну нумерологію, а також нумерологію Таро.</p>
+        <p>Проводжу особисті консультації, навчаю методиці учнів і пояснюю карму простою мовою — без містики заради містики, тільки те, з чим реально можна працювати.</p>
+        <blockquote class="author-quote">«Створюючи „Кармion“, я хотіла поєднати розрахунок, структуру і тлумачення в єдину систему — точну, відтворювану і живу».</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="wrap">
+    <div class="eyebrow">Відгуки</div>
+    <h2 class="serif">Що кажуть ті, хто вже порахував себе</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <video src="testimonial-1.mp4" controls preload="metadata"></video>
+      </div>
+    </div>
+    <p class="testi-more">Незабаром тут з'явиться більше відгуків.</p>
+  </div>
+</section>
+
+<section id="learning" style="background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="eyebrow">Навчання</div>
+    <h2 class="serif">Чого навчає курс «Кармion»</h2>
+    <p style="color:var(--muted); font-size:1rem; max-width:680px; margin:0 0 28px;">Курс проведе від першого розрахунку до повної консультації: як рахувати всю матрицю і що означає кожне конкретне число.</p>
+    <div class="learn-grid">
+      <div class="learn-item"><span>01</span>Число Свідомості — як влаштоване мислення</div>
+      <div class="learn-item"><span>02</span>Число Характеру — темперамент і поведінка</div>
+      <div class="learn-item"><span>03</span>Число Долі — куди веде життя</div>
+      <div class="learn-item"><span>04</span>Число Життєвого Шляху — через що реалізується</div>
+      <div class="learn-item"><span>05</span>Ядро Особистої Сили — джерело ресурсу</div>
+      <div class="learn-item"><span>06</span>СЖ — жаль минулого втілення</div>
+      <div class="learn-item"><span>07</span>ОПВ — помилка минулого втілення</div>
+      <div class="learn-item"><span>08–09</span>Прогностика «Місяця і Сонця» за роками життя</div>
+    </div>
+    <a class="btn-primary" style="margin-top:28px;" href="course.html">Дізнатися більше про курс</a>
+  </div>
+</section>
+
+<section id="levels">
+  <div class="wrap">
+    <div class="eyebrow">Формати участі</div>
+    <h2 class="serif">Три рівні знайомства з «Кармion»</h2>
+    <p style="color:var(--muted); font-size:1rem; max-width:640px; margin:0 0 32px;">Від першого знайомства до повного володіння методикою — обирайте, наскільки глибоко хочете зануритися.</p>
+    <div class="tiers">
+      <div class="tier-card">
+        <div class="tier-num">01</div>
+        <h3>Семінар «Кармion»</h3>
+        <p class="tier-desc">Вступний семінар — відео та методичка в закритій групі. Рахуєте свою зірку разом зі мною, без підготовки.</p>
+        <div class="tier-price"><span class="price-strike">1 200 грн</span> Поки безкоштовно</div>
+        <div class="btn-row">
+          <a class="btn-outline" href="https://wa.me/380638048904?text=Добрий%20день!%20Хочу%20потрапити%20на%20семінар%20«Кармion»" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn-outline" href="https://t.me/Tasya_tsvir?text=Добрий%20день!%20Хочу%20потрапити%20на%20семінар%20«Кармion»" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+      <div class="tier-card featured">
+        <div class="tier-num">02</div>
+        <h3>Курс + Калькулятор</h3>
+        <p class="tier-desc">Повне навчання методиці — розшифровка кожного числа, зв'язки, прогностика — плюс особистий доступ до калькулятора зірки.</p>
+        <div class="tier-price">10 000 грн</div>
+        <div class="btn-row">
+          <a class="btn-primary" href="https://wa.me/380638048904?text=Добрий%20день!%20Хочу%20курс%20%2B%20калькулятор%20«Кармion»" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn-primary" href="https://t.me/Tasya_tsvir?text=Добрий%20день!%20Хочу%20курс%20%2B%20калькулятор%20«Кармion»" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+      <div class="tier-card">
+        <div class="tier-num">03</div>
+        <h3>Курс + Калькулятор + Книга</h3>
+        <p class="tier-desc">Все з другого рівня плюс друкована книга «Атоми Душі» з доставкою — для тих, хто хоче мати методику і на папері.</p>
+        <div class="tier-price">12 000 грн</div>
+        <div class="btn-row">
+          <a class="btn-outline" href="https://wa.me/380638048904?text=Добрий%20день!%20Хочу%20курс%20%2B%20калькулятор%20%2B%20книгу%20«Атоми%20Душі»" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn-outline" href="https://t.me/Tasya_tsvir?text=Добрий%20день!%20Хочу%20курс%20%2B%20калькулятор%20%2B%20книгу%20«Атоми%20Душі»" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ancestor-soul">
+  <div class="wrap">
+    <div class="gift-badge">🎁 Подарунок для вас</div>
+    <h2 class="serif">Душа якого предка прийшла у вашому тілі?</h2>
+    <p style="color:var(--muted); font-size:0.95rem; max-width:640px; margin:0 0 10px;">Дата народження — це індикатор того, яка родова душа втілилася знову, і яке завдання роду вона несе з самого дитинства.</p>
+    <div class="ancestor-hint">Знайдіть число свого народження (або народження вашої дитини) нижче, щоб дізнатися кармічне креслення душі.</div>
+
+    <div class="matrix-block">
+      <h3 class="matrix-title">Матриця 1: Опори Родового Древа</h3>
+      <div class="matrix-grid matrix-grid-3">
+        <div class="matrix-card">
+          <div class="matrix-nums">1, 8, 17, 26</div>
+          <div class="matrix-label">Сильний Предок</div>
+          <p><b>Хто повернувся:</b> Знаменитий, мудрий предок. Рід потребує опори.</p>
+          <p><b>У дитинстві:</b> Самостійні, не терплять керівництва.</p>
+          <p><b>Загроза:</b> Тиск батьків руйнує їх зсередини; силі нема куди подітися.</p>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-nums">7, 16, 25</div>
+          <div class="matrix-label">Прабатьки</div>
+          <p><b>Хто повернувся:</b> Дід або прадід (навіть у тілі дівчинки). Чоловічий стрижень.</p>
+          <p><b>У дитинстві:</b> Рано дорослішають, важко приймають допомогу.</p>
+          <p><b>Загроза:</b> Живуть з руйнівним відчуттям, що не мають права на слабкість.</p>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-nums">2, 11, 20, 29</div>
+          <div class="matrix-label">Прабабусі</div>
+          <p><b>Хто повернувся:</b> Бабуся або прабабуся по материнській лінії.</p>
+          <p><b>У дитинстві:</b> Вроджена гіпервідповідальність за чужі емоції.</p>
+          <p><b>Загроза:</b> Повторення долі жінок роду — життя лише заради інших.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="matrix-block">
+      <h3 class="matrix-title">Матриця 2: Кармічні Боржники</h3>
+      <div class="matrix-grid matrix-grid-2">
+        <div class="matrix-card">
+          <div class="matrix-nums">4, 31</div>
+          <div class="matrix-label">Боржник Батька</div>
+          <p><b>Суть:</b> Душа прийшла розділити карму з батьком, якщо його рід згрішив (зради, розлучення, залежності).</p>
+          <p><b>Зона конфлікту:</b> Патріархальна лінія.</p>
+          <p><b>Циклічний сценарій:</b> У дорослому житті сценарій тиску триває через керівників і жорстких чоловіків, які перевіряють на міцність.</p>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-nums">3, 30</div>
+          <div class="matrix-label">Боржниця Матері</div>
+          <p><b>Суть:</b> Душа повернулася для розв'язання давнього конфлікту з жіночою гілкою родини.</p>
+          <p><b>Зона конфлікту:</b> Зв'язок з матір'ю завжди складний.</p>
+          <p><b>Циклічний сценарій:</b> Конфлікт переноситься на всіх жінок довкола (подруг, колег, свекрух), поки жіночу лінію не буде зцілено.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="matrix-block">
+      <h3 class="matrix-title">Матриця 3: Перервані та Незавершені цикли</h3>
+      <div class="matrix-grid matrix-grid-2">
+        <div class="matrix-card matrix-card-wide">
+          <div class="matrix-nums">10, 19, 22, 28</div>
+          <div class="matrix-label">Ненароджена Душа</div>
+          <p><b>Хто це:</b> Остання абортована душа роду, яка отримала другий шанс.</p>
+          <p><b>Прихований біль:</b> Постійне, незрозуміле відчуття, що потрібно «заслуговувати» право жити.</p>
+          <p><b>Поведінка:</b> Болісний страх втратити стосунки; погоджуються на менше там, де їх недооцінюють.</p>
+        </div>
+        <div class="matrix-card matrix-card-wide">
+          <div class="matrix-nums">12, 13, 14, 18</div>
+          <div class="matrix-label">Останній Померлий</div>
+          <p><b>Хто це:</b> Душа повернулася майже одразу після відходу, щоб зберегти важливий досвід.</p>
+          <p><b>Прихований біль:</b> Несуть незавершені емоції минулого життя.</p>
+          <p><b>Поведінка:</b> Незвична зрілість з дитинства, але тотальна нездатність відпускати минуле (переїзд сприймається як зрада).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="matrix-block">
+      <h3 class="matrix-title">Матриця 4: Чужинці, Вигнанці та Знахарі</h3>
+      <div class="matrix-grid matrix-grid-3">
+        <div class="matrix-card">
+          <div class="matrix-nums">5, 23</div>
+          <div class="matrix-label">Викреслені</div>
+          <p><b>Хто це:</b> Душі знедолених, вигнаних родичів.</p>
+          <p><b>Хрест:</b> Відчувають себе чужими в сім'ї, змушені постійно доводити своє право бути собою і йти своїм шляхом.</p>
+        </div>
+        <div class="matrix-card matrix-card-featured">
+          <div class="matrix-nums">6, 21, 24</div>
+          <div class="matrix-label">Нова Душа</div>
+          <p><b>Хто це:</b> Абсолютно чужа душа, яка вперше потрапила в цю родову ієрархію.</p>
+          <p><b>Хрест:</b> Відчувають себе «не такими» навіть у люблячій родині.</p>
+          <p><b>Місія:</b> Саме вони обривають токсичні багаторічні сценарії (розлучення, бідність).</p>
+        </div>
+        <div class="matrix-card">
+          <div class="matrix-nums">9, 27</div>
+          <div class="matrix-label">Знаючі</div>
+          <p><b>Хто це:</b> Магічний практик або цілитель роду.</p>
+          <p><b>Хрест:</b> Несвідомо вбирають чужий біль. Якщо відкидають дар, життя створює кризи, що вимагають інтуїції.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="book-product">
+  <div class="wrap">
+    <div class="book-layout">
+      <div class="book-cover-wrap">
+        <img src="book-cover-front.jpg" alt="Обкладинка книги «Атоми Душі»">
+      </div>
+      <div class="book-copy">
+        <div class="eyebrow">Авторська книга</div>
+        <h2 class="serif">Приборкайте свою карму</h2>
+        <p>Прийнято вважати карму караючою — але вона справедлива і щедро винагороджує тих, хто дотримується її правил. Книга простою мовою пояснює, як читати родову лінію, місяць втілення, кармічні індикатори минулих життів і відплату карми за роками — на прикладах і з формулами розрахунку.</p>
+        <div class="price-row">
+          <div class="price-note">Друковане видання, з доставкою поштою</div>
+        </div>
+        <a class="btn-primary" href="#levels">Входить до 3-го рівня навчання</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">КАРМІОН · Анастасія Цвіркунова (Щетиніна)</div>
+</footer>
+
+<a class="floating-calc-btn" href="calculator-overview.html">🔮 Калькулятор зірки</a>
+
+</body>
+</html>
